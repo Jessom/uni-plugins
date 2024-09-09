@@ -1,4 +1,11 @@
 # w-compress
+
+# 停止维护
+# 停止维护
+# 停止维护
+
+# 推荐使用[uni.compressImage](https://uniapp.dcloud.net.cn/api/media/image.html#compressimage)，H5端使用[compressorjs](https://github.com/fengyuanchen/compressorjs)
+
 支持H5，微信小程序的图片压缩工具(其他平台未测试)<br />
 [图片压缩](https://ext.dcloud.net.cn/plugin?id=1718#detail)
 

@@ -1,1 +1,2 @@
-基于uniapp开发的插件集合
+# w-compress(图片压缩) 停止维护
+# watasi-watermark-camera(水印相机)
