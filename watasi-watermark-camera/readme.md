@@ -1,9 +1,13 @@
 # watasi-watermark-camera 水印相机
 
+## 插件地址：[watasi-watermark-camera 水印相机](https://ext.dcloud.net.cn/plugin?id=20162)
+
 ### 仅支持nvue页面，仅支持APP
 ### 仅支持nvue页面，仅支持APP
 ### 仅支持nvue页面，仅支持APP
 
+
+### vue3没测试
 
 ## 使用说明
 | 属性		| 是否必填	|  值类型	| 默认值	| 说明			|
