@@ -1,3 +1,1 @@
-- w-compress(图片压缩) 停止维护
-- watasi-watermark-camera(水印相机)
-- watasi-compress(图片压缩，支持APP、H5、小程序)
+- uniapp组件
