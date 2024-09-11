@@ -73,7 +73,7 @@
 /**
  * 水印相机
  * @description 
- * @tutorial https://ext.dcloud.net.cn/plugin?id=35
+ * @tutorial https://ext.dcloud.net.cn/plugin?id=20162
  * @property {Array} watermark 水印
  * 	@value type text(文本)、image(图片)、fillRect(矩形)
  * 	@value x x轴坐标
