@@ -6,7 +6,6 @@
 ### 仅支持nvue页面，仅支持APP
 ### 仅支持nvue页面，仅支持APP
 
-
 ### 不支持vue3
 
 ## 使用说明
@@ -36,88 +35,86 @@
 ```javascript
 <template>
 	<view class="watermark-page">
-		<watasi-watermark-camera
-			:watermark="watermark"
-			@ready="ready"
-			@snapshot="snapshot"
-			@change="change"
-		/>
+		<watasi-watermark-camera :watermark="watermark" @ready="ready" @snapshot="snapshot" @change="change" />
 	</view>
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			watermark: []
-		};
-	},
-	
-	methods: {
-		ready(e) {
-			const { height, width } = e
-			this.watermark = [{
-				type: 'text',
-				x: uni.upx2px(24),
-				y: height - uni.upx2px(150),
-				color: '#fff',
-				size: uni.upx2px(68),
-				text: "14:04",
-				isBold: true
-			}, {
-				type: "fillRect",
-				x: uni.upx2px(232),
-				y: height- uni.upx2px(150),
-				w: uni.upx2px(4),
-				h: uni.upx2px(78),
-				color: "#f60"
-			}, {
-				type: 'text',
-				x: uni.upx2px(260),
-				y: height- uni.upx2px(150),
-				color: '#fff',
-				size: uni.upx2px(30),
-				text: "2024-09-09",
-			}, {
-				type: 'text',
-				x: uni.upx2px(260),
-				y: height- uni.upx2px(100),
-				color: '#fff',
-				size: uni.upx2px(30),
-				text: "星期一"
-			}, {
-				type: 'text',
-				x: uni.upx2px(24),
-				y: height - uni.upx2px(48),
-				color: '#fff',
-				size: uni.upx2px(28),
-				text: '江苏省苏州市科技城软件大厦'
-			}, {
-				type: 'image',
-				url: 'https://bpic.588ku.com/element_origin_min_pic/00/15/94/7556aeca8408555.jpg',
-				x: width - uni.upx2px(84),
-				y: height - uni.upx2px(84),
-				w: uni.upx2px(60),
-				h: uni.upx2px(60),
-			}]
+	export default {
+		data() {
+			return {
+				watermark: []
+			};
 		},
-		
-		snapshot() {
-			uni.showLoading({ mask: true })
-		},
-		
-		change() {
-			console.log("执行上传操作");
-			uni.hideLoading()
+
+		methods: {
+			ready(e) {
+				const { height, width } = e
+				this.watermark = [{
+					type: 'text',
+					x: uni.upx2px(24),
+					y: height - uni.upx2px(150),
+					color: '#fff',
+					size: uni.upx2px(68),
+					text: "14:04",
+					isBold: true
+				}, {
+					type: "fillRect",
+					x: uni.upx2px(232),
+					y: height - uni.upx2px(150),
+					w: uni.upx2px(4),
+					h: uni.upx2px(78),
+					color: "#f60"
+				}, {
+					type: 'text',
+					x: uni.upx2px(260),
+					y: height - uni.upx2px(150),
+					color: '#fff',
+					size: uni.upx2px(30),
+					text: "2024-09-09",
+				}, {
+					type: 'text',
+					x: uni.upx2px(260),
+					y: height - uni.upx2px(100),
+					color: '#fff',
+					size: uni.upx2px(30),
+					text: "星期一"
+				}, {
+					type: 'text',
+					x: uni.upx2px(24),
+					y: height - uni.upx2px(48),
+					color: '#fff',
+					size: uni.upx2px(28),
+					text: '江苏省苏州市科技城软件大厦'
+				}, {
+					type: 'image',
+					url: 'https://bpic.588ku.com/element_origin_min_pic/00/15/94/7556aeca8408555.jpg',
+					x: width - uni.upx2px(84),
+					y: height - uni.upx2px(84),
+					w: uni.upx2px(60),
+					h: uni.upx2px(60),
+				}]
+			},
+
+			snapshot() {
+				uni.showLoading({
+					mask: true
+				})
+			},
+
+			change(base64) {
+				console.log(base64);
+				console.log("执行上传操作");
+				uni.hideLoading()
+			}
 		}
 	}
-}
 </script>
 
 <style lang="scss">
-.watermark-page {
-	flex: 1;
-}
+	.watermark-page {
+		flex: 1;
+	}
 </style>
 ```
 

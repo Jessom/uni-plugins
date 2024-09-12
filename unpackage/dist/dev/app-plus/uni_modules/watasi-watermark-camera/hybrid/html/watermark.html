@@ -59,7 +59,7 @@
 							const item = watermark[i]
 							switch (item.type){
 								case 'text':
-									this.ctx.font = item.isBold ? "bolder "+ item.size * yRatio +"px Arial" : "normal "+item.size * yRatio+"px Arial";
+									this.ctx.font = item.isBold ? "bold "+ item.size * yRatio +"px Arial" : "normal "+item.size * yRatio+"px Arial";
 									this.ctx.fillStyle = item.color;
 									this.ctx.fillText(item.text, item.x * xRatio, (item.y + item.size) * yRatio);
 									break;

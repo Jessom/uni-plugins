@@ -8,6 +8,7 @@
  * 	@value height 压缩后图片的高度，如果未指定，将使用原始图像的自然高度
  */
 // #ifdef H5
+// import './compressor.min.js'
 import Compressor from './compressor.min.js'
 
 // 路径转file对象
@@ -17,6 +18,7 @@ function convertUrlToFile(imageUrl, fileName) {
 			const response = await fetch(imageUrl, { method: 'GET', mode: 'cors' });
 			if (!response.ok) {
 				throw new Error('图片加载失败！');
+				reject('图片加载失败！')
 			}
 			const blob = await response.blob();
 			const file = new File([blob], fileName, { type: blob.type });
@@ -68,17 +70,6 @@ export default (paths, options) => {
 	return new Promise((resolve, reject) => {
 		(async() => {
 			let result = []
-			/* for(let i=0; i<paths.tempFilePaths.length; i++) {
-				let path
-				// #ifndef H5
-				path = paths.tempFilePaths[i]
-				// #endif
-				// #ifdef H5
-				path = paths.tempFiles[i]
-				// #endif
-				
-				result.push(compress(path, options))
-			} */
 			for(let i=0; i<paths.length; i++) {
 				result.push(compress(paths[i], options))
 			}

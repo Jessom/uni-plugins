@@ -14,10 +14,7 @@
 
 		methods: {
 			ready(e) {
-				const {
-					height,
-					width
-				} = e
+				const { height, width } = e
 				this.watermark = [{
 					type: 'text',
 					x: uni.upx2px(24),
@@ -25,7 +22,7 @@
 					color: '#fff',
 					size: uni.upx2px(68),
 					text: "14:04",
-					bold: 'bold'
+					isBold: true
 				}, {
 					type: "fillRect",
 					x: uni.upx2px(232),
@@ -70,7 +67,8 @@
 				})
 			},
 
-			change() {
+			change(base64) {
+				console.log(base64);
 				console.log("执行上传操作");
 				uni.hideLoading()
 			}
