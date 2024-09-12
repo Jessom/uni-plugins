@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "水印相机",
-  "usingComponents": {
-    "watasi-watermark-camera": "/uni_modules/watasi-watermark-camera/components/watasi-watermark-camera/watasi-watermark-camera"
-  }
-}
