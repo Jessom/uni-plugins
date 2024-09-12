@@ -19,7 +19,7 @@
         /* 模块配置 */
         "modules" : {
             "Camera" : {},
-            "Record" : {}
+            "LivePusher" : {}
         },
         /* 应用发布信息 */
         "distribute" : {

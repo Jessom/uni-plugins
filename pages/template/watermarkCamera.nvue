@@ -5,7 +5,11 @@
 </template>
 
 <script>
+	import WatasiWatermarkCamera from "@/uni_modules/watasi-watermark-camera/components/watasi-watermark-camera/watasi-watermark-camera.nvue"
 	export default {
+		components: {
+			WatasiWatermarkCamera,
+		},
 		data() {
 			return {
 				watermark: []

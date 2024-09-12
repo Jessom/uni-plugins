@@ -1,0 +1,1 @@
+<view class="watermark-page"><watasi-watermark-camera vue-id="49dc6019-1" watermark="{{watermark}}" data-event-opts="{{[['^ready',[['ready']]],['^snapshot',[['snapshot']]],['^change',[['change']]]]}}" bind:ready="__e" bind:snapshot="__e" bind:change="__e" bind:__l="__l"></watasi-watermark-camera></view>
