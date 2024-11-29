@@ -6,21 +6,46 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "WATASI",
+				"navigationBarBackgroundColor": "#FECC34",
+				"backgroundColor": "#FECC34"
 			}
 		},
+		// #ifdef APP
 		{
-			"path" : "pages/template/watermarkCamera",
+			"path" : "pages/template/watermarkCamera/index",
 			"style" : 
 			{
 				"navigationBarTitleText" : "水印相机"
 			}
 		},
 		{
-			"path" : "pages/template/compress",
+			"path" : "pages/template/tabs/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : "选项卡"
+			}
+		},
+		// #endif
+		{
+			"path" : "pages/template/compress/index",
 			"style" : 
 			{
 				"navigationBarTitleText" : "图片压缩"
+			}
+		},
+		{
+			"path" : "pages/template/watermark/canvas1",
+			"style" : 
+			{
+				"navigationBarTitleText" : "图片水印1"
+			}
+		},
+		{
+			"path" : "pages/template/watermark/canvas2",
+			"style" : 
+			{
+				"navigationBarTitleText" : "图片水印2"
 			}
 		}
 	],

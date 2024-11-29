@@ -1,5 +1,5 @@
 {
-    "name" : "uniPluginV2",
+    "name" : "watasi",
     "appid" : "__UNI__5740702",
     "description" : "",
     "versionName" : "1.0.0",
@@ -53,7 +53,7 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        "appid" : "wx590747c65ea7f93d",
         "setting" : {
             "urlCheck" : false
         },

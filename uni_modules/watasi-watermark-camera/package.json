@@ -26,7 +26,7 @@
     "declaration": {
       "ads": "无",
       "data": "无",
-      "permissions": "无"
+      "permissions": "livePusher(直播推流)"
     },
     "npmurl": ""
   },
