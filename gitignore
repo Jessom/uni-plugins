@@ -4,6 +4,7 @@ deploy_versions/
 .rn_temp/
 node_modules/
 unpackage/
+unpackage/signature
 .DS_Store
 .svn
 lib

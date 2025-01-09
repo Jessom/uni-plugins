@@ -1,2 +1,0 @@
-.cell{display:flex;box-sizing:border-box;padding:20rpx}.cell .item{width:50%;margin:20rpx}.cell image,
-.cell uni-image{max-width:100%}

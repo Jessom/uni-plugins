@@ -1,6 +1,9 @@
 <template>
-	<view class="watermark-page">
+	<view class="watermark-page content">
 		<watasi-watermark-camera :watermark="watermark" @ready="ready" @snapshot="snapshot" @change="change" />
+		<input type="text" class="input" confirm-type="send" placeholder="填写备注." @input="inputChange"
+		    placeholder-style="color:#fff;"
+		    style="position: fixed;left: 20rpx;top: 1000rpx;width: 700rpx;height: 80rpx;opacity: 0;">
 	</view>
 </template>
 
@@ -15,8 +18,33 @@
 				watermark: []
 			};
 		},
+		
+		onLoad() {
+			this.updateTime()
+			const _this = this
+			setInterval(function() {
+			    _this.updateTime()
+			}, 1000)
+		},
 
 		methods: {
+			updateTime() {
+			    var now = new Date();
+			    var hours = now.getHours();
+			    var minutes = now.getMinutes();
+					console.log("阿斯顿福建");
+			    if(hours<10){
+			        hours='0' + hours
+			    }
+			    if(minutes<10){
+			        minutes='0'+minutes
+			    }
+			    const timeStr = hours + ':' + minutes ;
+			    if (this.watermark.length > 0) {
+			      this.watermark[1].text = timeStr
+			    }
+			},
+			
 			ready(e) {
 				const { height, width } = e
 				this.watermark = [{
@@ -63,6 +91,14 @@
 					w: uni.upx2px(60),
 					h: uni.upx2px(60),
 				}]
+				
+				setTimeout(() => {
+					this.watermark[3] = '按揭房'
+				}, 2500)
+				
+				setTimeout(() => {
+					this.watermark[4] = '阿拉善番窠倒臼拉空间'
+				}, 3000)
 			},
 
 			snapshot() {
@@ -84,4 +120,523 @@
 	.watermark-page {
 		flex: 1;
 	}
+	
 </style>
+
+
+<!-- 
+
+<template>
+    <view class="content">
+        <watasi-watermark-camera ref="watermark" :watermark="watermark" @ready="ready" :debug='false' @snapshot="snapshot"
+            @change="change" />
+        <input type="text" class="input" confirm-type="send" placeholder="填写备注." @input="inputChange"
+            placeholder-style="color:#fff;"
+            style="position: fixed;left: 20rpx;top: 1000rpx;width: 700rpx;height: 80rpx;opacity: 0;">
+    </view>
+</template>
+<script>
+    // import config from '@/utils/config';
+    import WatasiWatermarkCamera from "@/uni_modules/watasi-watermark-camera/components/watasi-watermark-camera/watasi-watermark-camera.nvue"
+    export default {
+        components: {
+              WatasiWatermarkCamera,
+            },
+        data() {
+            return {
+                baseUrl: config.host1,
+                header: [],
+                type: 'check',
+                address: null,
+                week: null,
+                time: null,
+                house: null,
+                remark: '备注:请输入需要备注的内容',
+                cameraPosition: false,
+                longitude: null,
+                latitude: null,
+                watermark: [],
+                addressActive:false
+            };
+        },
+        onLoad(option) {
+            this.type = option.type
+            if (option.type == 'check') {
+                this.cameraPosition = true
+            }
+            var _this = this
+            this.updateTime()
+            setInterval(function() {
+                _this.updateTime()
+            }, 1000)
+            // setInterval(function(){
+            //     _this.addressCheck()
+            // },20000)
+            
+            this.week = this.getCurrentDayOfWeek()
+            this.time = uni.$_getNowDate("day")
+        },
+        methods: {
+            ready(e) {
+                const {
+                    height,
+                    width
+                } = e
+                if(!this.cameraPosition){
+                    this.$refs.watermark.switchCamera()
+                }
+                this.watermark = [{
+                        type: 'image',
+                        url: this.type == 'check' ? 'http://yqapi.bugping.com/files/dakabg.png' :
+                            'http://yqapi.bugping.com/files/dakabg2.png',
+                        x: uni.upx2px(24),
+                        y: height - uni.upx2px(370),
+                        w: uni.upx2px(345),
+                        h: uni.upx2px(83),
+                    },
+                    {
+                        type: 'text',
+                        x: uni.upx2px(122),
+                        y: height - uni.upx2px(355),
+                        color: '#000',
+                        size: uni.upx2px(42),
+                        text: '00:00',
+                        isBold: true
+                    },
+                    {
+                        type: "fillRect",
+                        x: uni.upx2px(24),
+                        y: height - uni.upx2px(250),
+                        w: uni.upx2px(6),
+                        h: uni.upx2px(132),
+                        color: "#febd41"
+                    },
+                    {
+                        type: 'text',
+                        x: uni.upx2px(50),
+                        y: height - uni.upx2px(250),
+                        w:320,
+                        color: '#fff',
+                        size: uni.upx2px(26),
+                        text: this.address,
+                    },
+                    {
+                        type: 'text',
+                        x: uni.upx2px(50),
+                        y: height - uni.upx2px(195),
+                        color: '#fff',
+                        size: uni.upx2px(26),
+                        text: this.time
+                    },
+                    {
+                        type: 'text',
+                        x: uni.upx2px(210),
+                        y: height - uni.upx2px(195),
+                        color: '#fff',
+                        size: uni.upx2px(26),
+                        text: this.week
+                    },
+                    {
+                        type: 'text',
+                        x: uni.upx2px(50),
+                        y: height - uni.upx2px(150),
+                        color: '#fff',
+                        size: uni.upx2px(26),
+                        text: '拍摄人'
+                    },
+                    {
+                        type: 'image',
+                        url: 'http://yqapi.bugping.com/files/bg.png',
+                        x: uni.upx2px(24),
+                        y: height - uni.upx2px(80),
+                        w: uni.upx2px(28),
+                        h: uni.upx2px(28),
+                    },
+                    {
+                        type: 'text',
+                        x: uni.upx2px(60),
+                        y: height - uni.upx2px(83),
+                        color: '#fff',
+                        size: uni.upx2px(26),
+                        text: this.remark
+                    },
+                    // {
+                    //     type: 'text',
+                    //     x: uni.upx2px(50),
+                    //     y: height - uni.upx2px(223),
+                    //     color: '#fff',
+                    //     size: uni.upx2px(26),
+                    //     text: '',
+                    // },
+                ]
+                var _this = this
+                uni.$_get({
+                    url: "myCenter",
+                    that: _this,
+                    success(res) {
+                        if (res.code == 0) {
+                            _this.watermark[6].text = '拍摄人:' + res.data.username + '(' + res.data.deptName + ')'
+                        }
+                    },
+                    fail(err) {
+                        console.log(err)
+                    }
+                });
+                _this.addressCheck()
+            },
+            addressCheck(){
+                var _this = this
+                uni.getLocation({
+                    type: 'gcj02',
+                    geocode:true,
+                    success: function(res) {
+                        const latitude = res.latitude;
+                        const longitude = res.longitude;
+                        _this.latitude = latitude
+                        _this.longitude = longitude
+                        var str=res.address
+                        console.log(res)
+                        _this.watermark[3].text = str.province +  str.city + str.district + str.street + str.streetNum + str.poiName
+                        _this.addressActive=true
+                        // // 使用高德地图API转换经纬度为地址信息
+                        // const amapKey = '28b47122da0288649736f45bbf3c81e2'; // 替换为你的高德地图API Key
+                        // const url =
+                        //     `https://restapi.amap.com/v3/geocode/regeo?key=${amapKey}&location=${longitude},${latitude}&extensions=all&radius=10&roadlevel=1`;
+                        // uni.request({
+                        //     url: url,
+                        //     success: (response) => {
+                        //         if (response.data && response.data.regeocode) {
+                        //             console.log(response.data)
+                        //             var str=response.data.regeocode.addressComponent
+                        //             _this.watermark[3].text = str.province + str.city + str.district + str.township + str.streetNumber.street
+                        //             if(response.data.regeocode.aois.length>0){
+                        //                 _this.watermark[9].text = response.data.regeocode.aois[response.data.regeocode.aois.length-1].name
+                        //             }else{
+                        //                 _this.watermark[9].text = response.data.regeocode.pois[response.data.regeocode.pois.length-1].address
+                        //             }
+                                    
+                        //             // 处理地址信息
+                        //         } else {
+                        //             console.log('获取位置信息失败', response.data);
+                        //         }
+                        //     },
+                        //     fail: (error) => {
+                        //         console.log('请求高德地图API失败', error);
+                        //     }
+                        // });
+                    },
+                    fail: function(error) {
+                        console.error('获取位置失败', error);
+                    }
+                })
+            },
+            snapshot() {
+                uni.showLoading({
+                    mask: true
+                })
+            },
+            change(base64) {
+                console.log(base64)
+                var _this = this
+                if(!this.addressActive){
+                    uni.showToast({
+                        title: '未获取到位置信息',
+                        duration: 1000,
+                        icon: 'none'
+                    });
+                    return
+                }
+                const now = new Date();
+                const seconds = now.getSeconds();
+                if(!_this.watermark[3].text || _this.watermark[3].text=='null'){
+                    uni.showToast({
+                        title: '当前位置异常',
+                        duration: 1000,
+                        icon: 'none'
+                    });
+                    return
+                }
+                let p = {
+                    address: _this.watermark[3].text,
+                    week: _this.week,
+                    remark: _this.watermark[8].text == '备注:请输入需要备注的内容' ?
+                        '' : _this.watermark[8].text,
+                    latitude: _this.latitude,
+                    longitude: _this.longitude,
+                    nowDate:uni.$_getNowDate("day") + ' ' + _this.watermark[1].text + ':' + seconds,
+                    base64: base64
+                }
+                uni.$_post({
+                    url: _this.type == 'check' ? 'checkWork' :
+                        'onwork',
+                    that: _this,
+                    params: p,
+                    success(res) {
+                        uni.showToast({
+                            title: res.msg,
+                            duration: 1000,
+                            icon: 'success'
+                        });
+                        setTimeout(() => {
+                            uni.reLaunch({
+                                url: '/pages/tabbar/index/index'
+                            });
+                        }, 1000);
+                    },
+                    fail(err) {
+                        uni.showToast({
+                            title: err.msg,
+                            duration: 1000,
+                            icon: 'none'
+                        });
+                        setTimeout(() => {
+                            uni.navigateBack()
+                        }, 1000);
+                    }
+                });
+                // uni.$_post({
+                //     url: 'upload-image',
+                //     that: _this,
+                //     params: {
+                //         base64: base64
+                //     },
+                //     success(b) {
+                //         if (b.code == 0) {
+                //             uni.$_get({
+                //                 url: "oddCheckWork|" + '?latitude=' + _this.latitude + '&longitude=' +
+                //                     _this.longitude,
+                //                 that: _this,
+                //                 success(res) {
+                //                     console.log(res)
+                //                     if (res.code == 0) {
+                //                         if (res.data.exist || !res.data.bind) {
+                                            
+                //                         } else {
+                //                             uni.showToast({
+                //                                 title: _this.type == 'check' ? '未在指定工作区域打卡' :
+                //                                     '未在指定工作区域拍照',
+                //                                 duration: 1000,
+                //                                 icon: 'none'
+                //                             });
+                //                             setTimeout(() => {
+                //                                 uni.navigateBack()
+                //                             }, 1000);
+                //                         }
+                //                     }
+                //                 },
+                //                 fail(err) {
+                //                     uni.showToast({
+                //                         title: err.msg,
+                //                         duration: 1000,
+                //                         icon: 'none'
+                //                     });
+                //                     setTimeout(() => {
+                //                         uni.navigateBack()
+                //                     }, 1000);
+                //                 }
+                //             });
+                //         }
+                //     },
+                //     fail(err) {
+                //         uni.showToast({
+                //             title: err.msg,
+                //             duration: 1000,
+                //             icon: 'none'
+                //         });
+                //         setTimeout(() => {
+                //             uni.navigateBack()
+                //         }, 1000);
+                //     }
+                // });
+            },
+            inputChange(e) {
+                this.watermark[8].text = '备注:' + e.detail.value
+            },
+            updateTime() {
+                var now = new Date();
+                var hours = now.getHours();
+                var minutes = now.getMinutes();
+                if(hours<10){
+                    hours='0'+hours
+                }
+                if(minutes<10){
+                    minutes='0'+minutes
+                }
+                const timeStr = hours + ':' + minutes ;
+                if (this.watermark.length > 0) {
+                    this.watermark[1].text = timeStr
+                }
+
+            },
+            getCurrentDayOfWeek() {
+                const daysOfWeek = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+                const currentDay = new Date().getDay();
+                return daysOfWeek[currentDay];
+            }
+        }
+    }
+</script>
+
+<style lang="scss">
+    .content {
+        flex: 1;
+        padding: 0;
+
+        .center {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+
+            .bg {
+                display: block;
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, 0.24);
+                z-index: 4;
+            }
+
+            .con {
+                position: absolute;
+                left: 0;
+                bottom: 50rpx;
+                right: 0;
+                box-sizing: border-box;
+                padding: 0 30rpx;
+                z-index: 5;
+
+                .info1 {
+                    width: 345rpx;
+                    height: 83rpx;
+                    line-height: 83rpx;
+                    box-sizing: border-box;
+                    position: relative;
+                    margin-bottom: 30rpx;
+                    background: #fff;
+                    flex: 1;
+
+                    .img {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 345rpx;
+                        height: 83rpx;
+                    }
+
+                    .text {
+                        font-size: 42rpx;
+                        font-weight: bold;
+                        color: #000000;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        right: 35rpx;
+                        bottom: 0;
+                        text-align: center;
+                        line-height: 83rpx;
+                    }
+                }
+
+                .info2 {
+                    padding-left: 15rpx;
+                    border-left: 6rpx solid #febd41;
+                    margin-bottom: 60rpx;
+
+                    .text1 {
+                        font-size: 26rpx;
+                        line-height: 42rpx;
+                        color: #ffffff;
+                        margin-bottom: 20rpx;
+                    }
+
+                    .text2 {
+                        font-size: 26rpx;
+                        line-height: 28rpx;
+                        color: #ffffff;
+                    }
+                }
+
+                .info3 {
+                    flex-direction: row;
+                    justify-content: start;
+                    align-items: center;
+
+                    .img {
+                        vertical-align: middle;
+                        height: 28rpx;
+                        margin-right: 10rpx;
+                        margin-bottom: 10rpx;
+                    }
+
+                    .input {
+                        font-size: 26rpx;
+                        color: #ffffff;
+                        line-height: 28rpx;
+                        width: 650rpx;
+                        position: relative;
+                        top: -6rpx;
+                    }
+
+                    .text {
+                        font-size: 26rpx;
+                        color: #ffffff;
+                        line-height: 34rpx;
+                    }
+                }
+            }
+
+        }
+
+        .bot {
+            height: 276rpx;
+            background: #fff;
+            box-sizing: border-box;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding-top: 50rpx;
+            flex-direction: row;
+            justify-content: center;
+
+            .btn {
+                width: 146rpx;
+                height: 146rpx;
+                border-radius: 100%;
+                text-align: center;
+                margin: 0 auto;
+
+                .img {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    width: 146rpx;
+                    height: 146rpx;
+                }
+
+                .text {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    line-height: 146rpx;
+                    font-size: 32rpx;
+                    font-weight: bold;
+                    color: #fff;
+                    text-align: center;
+                }
+            }
+        }
+    }
+</style>
+
+ -->
+

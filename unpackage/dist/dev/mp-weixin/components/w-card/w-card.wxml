@@ -1,1 +1,0 @@
-<view class="w-card"><view class="{{['w-card_inner',className]}}"><slot></slot></view></view>
